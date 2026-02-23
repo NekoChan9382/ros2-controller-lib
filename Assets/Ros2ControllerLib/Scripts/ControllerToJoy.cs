@@ -11,7 +11,9 @@ namespace Ros2ControllerLib
     LeftStickX = 0,
     LeftStickY = 1,
     RightStickX = 2,
-    RightStickY = 3
+    RightStickY = 3,
+    L2 = 4,
+    R2 = 5,
   }
 
   public enum JoyButton
@@ -50,6 +52,8 @@ namespace Ros2ControllerLib
     joyMsg.Axes[(int)JoyAxis.LeftStickY]  = gamepad.leftStick.y.ReadValue();
     joyMsg.Axes[(int)JoyAxis.RightStickX] = gamepad.rightStick.x.ReadValue();
     joyMsg.Axes[(int)JoyAxis.RightStickY] = gamepad.rightStick.y.ReadValue();
+    joyMsg.Axes[(int)JoyAxis.L2] = gamepad.leftTrigger.ReadValue();
+    joyMsg.Axes[(int)JoyAxis.R2] = gamepad.rightTrigger.ReadValue();
 
     joyMsg.Buttons[(int)JoyButton.Circle] = gamepad.circleButton.isPressed ? 1 : 0;
     joyMsg.Buttons[(int)JoyButton.Cross]  = gamepad.crossButton.isPressed ? 1 : 0;
