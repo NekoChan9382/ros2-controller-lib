@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using ROS2;
+using sensor_msgs.msg;
 
 namespace Ros2ControllerLib
 {
@@ -14,6 +15,7 @@ namespace Ros2ControllerLib
     RightStickY = 3,
     L2 = 4,
     R2 = 5,
+    Size = 6
   }
 
   public enum JoyButton
@@ -31,7 +33,8 @@ namespace Ros2ControllerLib
     L3 = 10,
     R3 = 11,
     Share = 12,
-    Options = 13
+    Options = 13,
+    Size = 14
   }
   public class ControllerToJoy
   {
@@ -45,8 +48,11 @@ namespace Ros2ControllerLib
     var joyMsg = new sensor_msgs.msg.Joy();
     if (gamepad == null)
     {
+      Debug.LogWarning("No gamepad connected. Returning empty Joy message.");
       return joyMsg; // Return an empty Joy message if no gamepad is connected
     }
+    joyMsg.Axes = new float[(int)JoyAxis.Size];
+    joyMsg.Buttons = new int[(int)JoyButton.Size];
 
     joyMsg.Axes[(int)JoyAxis.LeftStickX]  = gamepad.leftStick.x.ReadValue();
     joyMsg.Axes[(int)JoyAxis.LeftStickY]  = gamepad.leftStick.y.ReadValue();
